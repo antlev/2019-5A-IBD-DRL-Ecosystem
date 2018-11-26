@@ -2,10 +2,16 @@ import os
 
 from keras.engine.saving import load_model
 from tensorflow import keras
+import time
 
 from agents.CommandLineAgent import CommandLineAgent
 from agents.RandomAgent import RandomAgent
 from agents.ReinforceClassicWithMultipleTrajectoriesAgent import ReinforceClassicWithMultipleTrajectoriesAgent
+from agents.DeepQLearningAgent import DeepQLearningAgent
+from agents.RandomRolloutAgent import RandomRolloutAgent
+from agents.ReinforceClassicAgent import ReinforceClassicAgent
+from agents.ReinforceClassicAgent import ReinforceClassicBrain
+from agents.TabularQLearningAgent import TabularQLearningAgent
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # see issue #152
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
@@ -31,7 +37,10 @@ class BasicTicTacToeRunner(GameRunner):
     def run(self, max_rounds: int = -1,
             initial_game_state: TicTacToeGameState = TicTacToeGameState()) -> 'Tuple[float]':
         round_id = 0
-
+        filename = "../logs/" + type(self.agents[0]).__name__ + "_VS_" + type(self.agents[1]).__name__ + str(time.time()) + ".txt"
+        logs_scores_file = open(filename, "w")
+        logs_scores_file.close()
+        print(type(self.agents[1]).__name__)
         score_history = np.array((0, 0, 0))
         while round_id < max_rounds or round_id == -1:
             gs = initial_game_state.copy_game_state()
@@ -40,10 +49,15 @@ class BasicTicTacToeRunner(GameRunner):
                 current_player = gs.get_current_player_id()
                 action_ids = gs.get_available_actions_id_for_player(current_player)
                 info_state = gs.get_information_state_for_player(current_player)
+                if round_id == 1000 or round_id == 10000 or round_id == 100000 or round_id == 100000:
+                    timer = time.time()
                 action = self.agents[current_player].act(current_player,
                                                          info_state,
                                                          action_ids)
-
+                if round_id == 1000 or round_id == 10000 or round_id == 100000 or round_id == 1000000:
+                    logs_scores_file = open(filename, "a")
+                    logs_scores_file.write("TIMER " + str(round_id) + " PLAYER " + str(current_player) + " == " + str(time.time() - timer) + "\n")
+                    logs_scores_file.close()
                 # WARNING : Two Players Zero Sum Game Hypothesis
                 (gs, score, terminal) = gs.step(current_player, action)
                 self.agents[current_player].observe(
@@ -59,6 +73,10 @@ class BasicTicTacToeRunner(GameRunner):
 
             if round_id != -1:
                 round_id += 1
+                if round_id == 1000 or round_id == 10000 or round_id == 100000 or round_id == 100000:
+                    logs_scores_file = open(filename, "a")
+                    logs_scores_file.write("CHECKPOINT " + str(round_id) + " == " +str(score_history / self.print_and_reset_score_history_threshold) + "\n")
+                    logs_scores_file.close()
                 if self.print_and_reset_score_history_threshold is not None and \
                         round_id % self.print_and_reset_score_history_threshold == 0:
                     print(score_history / self.print_and_reset_score_history_threshold)
@@ -75,6 +93,7 @@ class BasicTicTacToeRunner(GameRunner):
                         self.agents = (CommandLineAgent(), self.agents[1])
                         self.stuck_on_same_score = 0
                     score_history = np.array((0, 0, 0))
+        logs_scores_file.close()
         return tuple(score_history)
 
 
@@ -94,6 +113,8 @@ if __name__ == "__main__":
     # print(BasicTicTacToeRunner(CommandLineAgent(), CommandLineAgent(),
     #                            print_and_reset_score_history_threshold=100).run(100000000))
 
-    print(BasicTicTacToeRunner(ReinforceClassicWithMultipleTrajectoriesAgent(9, 9), RandomAgent(),
-                               print_and_reset_score_history_threshold=100).run(100000000000))
+    #print(BasicTicTacToeRunner(ReinforceClassicAgent(9,9,10,512), RandomAgent(), print_and_reset_score_history_threshold=1000).run(100000000))
+    print(BasicTicTacToeRunner(DeepQLearningAgent(9, 9), RandomAgent(), print_and_reset_score_history_threshold=1000).run(100000000))
+    #print(BasicTicTacToeRunner(ReinforceClassicWithMultipleTrajector10iesAgent(9, 9), RandomAgent(),
+     #                          print_and_reset_score_history_threshold=100).run(100000000000))
 
