@@ -78,7 +78,7 @@ class BasicTicTacToeRunner(GameRunner):
 
             if round_id != -1:
                 round_id += 1
-                if round_id == 1000 or round_id == 10000 or round_id == 100000 or round_id == 100000:
+                if round_id == 1000 or round_id == 10000 or round_id == 100000 or round_id == 1000000:
                     if not(agent1 == agent2 and agent1 == "RandomAgent"):
                         logs_scores_file = open(filename, "a")
                         logs_scores_file.write("CHECKPOINT " + str(round_id) + " == " +str(score_history / self.print_and_reset_score_history_threshold) + "\n")
