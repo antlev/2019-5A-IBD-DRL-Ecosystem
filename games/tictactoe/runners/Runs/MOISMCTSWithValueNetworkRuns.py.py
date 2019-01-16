@@ -122,7 +122,7 @@ if __name__ == "__main__":
                 print(log_dir10)
                 print(TensorboardTicTacToeRunner(MOISMCTSWithValueNetworkAgent(100,
                                      				SafeTicTacToeRunner(RandomAgent(), RandomAgent())),
-                                                 DoubleQLearningAgent(9,9),
+                                                 DoubleQLearningAgent(),
                                                  log_and_reset_score_history_threshold=10000,
                                                  log_dir=log_dir9).run(1000000000))
             elif self.opponent == "RandomRolloutAgent":

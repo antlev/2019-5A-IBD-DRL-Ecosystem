@@ -112,7 +112,7 @@ if __name__ == "__main__":
                 log_dir10 = self.log_dir_root + "DeepQLearningAgent_VS_DoubleQLearningAgent_" + self.time
                 print(log_dir10)
                 print(TensorboardTicTacToeRunner(DeepQLearningAgent(9, 9),
-                                                 DoubleQLearningAgent(9,9),
+                                                 DoubleQLearningAgent(),
                                                  log_and_reset_score_history_threshold=10000,
                                                  log_dir=log_dir10).run(1000000000))
             elif self.opponent == "RandomRolloutAgent":

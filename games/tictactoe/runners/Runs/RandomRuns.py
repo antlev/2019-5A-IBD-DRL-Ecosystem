@@ -112,7 +112,7 @@ if __name__ == "__main__":
                 log_dir10 = self.log_dir_root + "RandomAgent_VS_DoubleQLearningAgent_" + self.time
                 print(log_dir10)
                 print(TensorboardTicTacToeRunner(RandomAgent(),
-                                                 DoubleQLearningAgent(9,9),
+                                                 DoubleQLearningAgent(),
                                                  log_and_reset_score_history_threshold=10000,
                                                  log_dir=log_dir10).run(1000000000))
             elif self.opponent == "RandomRolloutAgent":
@@ -130,7 +130,7 @@ if __name__ == "__main__":
                 print("Unknown opponent")
 
 
-    log_dir_root = "./logs/RandomAgent_vs_all/"
+    log_dir_root = "./logs/TEST/RandomAgent_vs_all/"
     # Création des threads
     thread_1 = Bench(log_dir_root=log_dir_root, opponent="RandomAgent")
     thread_2 = Bench(log_dir_root=log_dir_root, opponent="TabularQLearningAgent")

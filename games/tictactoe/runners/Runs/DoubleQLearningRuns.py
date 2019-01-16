@@ -41,49 +41,49 @@ if __name__ == "__main__":
             if self.opponent == "RandomAgent":
                 log_dir1 = self.log_dir_root + "DoubleQLearningAgent_VS_RandomAgent_" + self.time
                 print(log_dir1)
-                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(9,9),
+                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(),
                                                  RandomAgent(),
                                                  log_and_reset_score_history_threshold=10000,
                                                  log_dir=log_dir1).run(100000000))
             elif self.opponent == "TabularQLearningAgent":
                 log_dir2 = self.log_dir_root + "DoubleQLearningAgent_VS_TabularQLearningAgent_" + self.time
                 print(log_dir2)
-                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(9,9),
+                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(),
                                                  TabularQLearningAgent(),
                                                  log_and_reset_score_history_threshold=10000,
                                                  log_dir=log_dir2).run(100000000))
             elif self.opponent == "DeepQLearningAgent":
                 log_dir3 = self.log_dir_root + "DoubleQLearningAgent_VS_DeepQLearningAgent_" + self.time
                 print(log_dir3)
-                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(9,9),
+                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(),
                                                  DeepQLearningAgent(9, 9),
                                                  log_and_reset_score_history_threshold=10000,
                                                  log_dir=log_dir3).run(100000000))
             elif self.opponent == "ReinforceClassicAgent":
                 log_dir4 = self.log_dir_root + "DoubleQLearningAgent_VS_ReinforceClassicAgent_" + self.time
                 print(log_dir4)
-                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(9,9),
+                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(),
                                                  ReinforceClassicAgent(9, 9),
                                                  log_and_reset_score_history_threshold=10000,
                                                  log_dir=log_dir4).run(100000000))
             elif self.opponent == "ReinforceClassicWithMultipleTrajectoriesAgent":
                 log_dir5 = self.log_dir_root + "DoubleQLearningAgent_VS_ReinforceClassicWithMultipleTrajectoriesAgent_" + self.time
                 print(log_dir5)
-                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(9,9),
+                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(),
                                                  ReinforceClassicWithMultipleTrajectoriesAgent(9, 9),
                                                  log_and_reset_score_history_threshold=10000,
                                                  log_dir=log_dir5).run(100000000))
             elif self.opponent == "PPOWithMultipleTrajectoriesMultiOutputsAgent":
                 log_dir6 = self.log_dir_root + "DoubleQLearningAgent_VS_PPOWithMultipleTrajectoriesMultiOutputsAgent_" + self.time
                 print(log_dir6)
-                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(9,9),
+                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(),
                                                  PPOWithMultipleTrajectoriesMultiOutputsAgent(9, 9),
                                                  log_and_reset_score_history_threshold=10000,
                                                  log_dir=log_dir6).run(100000000))
             elif self.opponent == "MOISMCTSWithRandomRolloutsAgent":
                 log_dir7 = self.log_dir_root + "DoubleQLearningAgent_VS_MOISMCTSWithRandomRolloutsAgent_" + self.time
                 print(log_dir7)
-                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(9,9),
+                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(),
                                                  MOISMCTSWithRandomRolloutsAgent(100,
                                                                                  SafeTicTacToeRunner(RandomAgent(),
                                                                                                      RandomAgent())),
@@ -92,7 +92,7 @@ if __name__ == "__main__":
             elif self.opponent == "MOISMCTSWithRandomRolloutsExpertThenApprenticeAgent":
                 log_dir8 = self.log_dir_root + "DoubleQLearningAgent_VS_MOISMCTSWithRandomRolloutsExpertThenApprenticeAgent_" + self.time
                 print(log_dir8)
-                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(9,9),
+                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(),
                                                  MOISMCTSWithRandomRolloutsExpertThenApprenticeAgent(100,
                                                                                                      SafeTicTacToeRunner(
                                                                                                          RandomAgent(),
@@ -102,7 +102,7 @@ if __name__ == "__main__":
             elif self.opponent == "MOISMCTSWithValueNetworkAgent":
                 log_dir9 = self.log_dir_root + "DoubleQLearningAgent_VS_MOISMCTSWithValueNetworkAgent_" + self.time
                 print(log_dir9)
-                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(9,9),
+                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(),
                                                  MOISMCTSWithValueNetworkAgent(100,
                                                                                SafeTicTacToeRunner(RandomAgent(),
                                                                                                    RandomAgent())),
@@ -111,8 +111,8 @@ if __name__ == "__main__":
             elif self.opponent == "DoubleQLearningAgent":
                 log_dir10 = self.log_dir_root + "DoubleQLearningAgent_VS_DoubleQLearningAgent_" + self.time
                 print(log_dir10)
-                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(9,9),
-                                                 DoubleQLearningAgent(9,9),
+                print(TensorboardTicTacToeRunner(DoubleQLearningAgent(),
+                                                 DoubleQLearningAgent(),
                                                  log_and_reset_score_history_threshold=10000,
                                                  log_dir=log_dir9).run(1000000000))
             elif self.opponent == "RandomRolloutAgent":
