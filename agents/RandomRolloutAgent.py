@@ -31,3 +31,6 @@ class RandomRolloutAgent(Agent):
             action_scores[i] = player_score
         return actions[np.argmax(action_scores)]
 
+    def toString(self):
+        return "RandomRolloutAgent"
+

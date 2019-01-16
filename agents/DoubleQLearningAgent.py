@@ -1,6 +1,13 @@
 import random
 
+import keras
 import numpy as np
+from keras import Sequential, Input, Model
+from keras.activations import relu, linear
+from keras.constraints import maxnorm
+from keras.layers import Dense, Flatten, Concatenate, BatchNormalization
+from keras.losses import mse
+from keras.optimizers import sgd, rmsprop
 
 from environments import InformationState
 from environments.Agent import Agent
@@ -85,3 +92,6 @@ class DoubleQLearningAgent(Agent):
             self.Qb[self.s][self.a] += 0.1 * (
                         self.reward_scaler(self.r) + (0 if self.t else (0.9 * max(self.Qb[self.s_next].values()))) -
                         self.Qb[self.s][self.a])
+
+    def toString(self):
+        return "DoubleQLearningAgent"

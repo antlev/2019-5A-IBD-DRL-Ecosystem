@@ -29,7 +29,7 @@ class TabularQLearningAgent(Agent):
                 self.t = None
                 self.game_count += 1
                 if (self.game_count % 1000) == 0:
-                    print(self.reward_history / 1000)
+                    # print(self.reward_history / 1000)
                     self.reward_history = np.array((0, 0, 0))
 
     def act(self, player_index: int, information_state: InformationState, available_actions: 'Iterable[int]') -> int:
@@ -66,3 +66,6 @@ class TabularQLearningAgent(Agent):
         self.Q[self.s][self.a] += 0.1 * (
                     self.reward_scaler(self.r) + (0 if self.t else (0.9 * max(self.Q[self.s_next].values()))) -
                     self.Q[self.s][self.a])
+
+    def toString(self) -> str:
+        return "TabularQLearning"

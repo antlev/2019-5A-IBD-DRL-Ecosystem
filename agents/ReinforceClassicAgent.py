@@ -106,3 +106,5 @@ class ReinforceClassicAgent(Agent):
             self.episode_buffer = []
 
 
+    def toString(self):
+        return "ReinforceClassicAgent"

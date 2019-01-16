@@ -6,7 +6,8 @@ from environments.InformationState import InformationState
 class WindJammersInformationState(InformationState):
 
     def __hash__(self):
-        raise NotImplementedError()
+        return hash(self.vectorize().tobytes())
+        # raise NotImplementedError()
 
     def __eq__(self, other):
         return \

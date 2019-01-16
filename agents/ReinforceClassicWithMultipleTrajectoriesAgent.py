@@ -64,3 +64,6 @@ class ReinforceClassicWithMultipleTrajectoriesAgent(Agent):
 
                 self.brain.train_policies(states, actions, advantages)
                 self.trajectories = []
+
+    def toString(self):
+        return "ReinforceClassicWithMultipleTrajectoriesAgent"

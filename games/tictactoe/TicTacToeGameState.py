@@ -4,12 +4,13 @@ import numpy as np
 from environments import InformationState
 from environments.GameState import GameState
 from games.tictactoe.TicTacToeInformationState import TicTacToeInformationState
+import random
 
 
 class TicTacToeGameState(GameState):
 
     def __init__(self):
-        self.current_player = 0
+        self.current_player = random.randint(0,1)
         self.board = np.array(
             (
                 (0, 0, 0),
@@ -17,6 +18,16 @@ class TicTacToeGameState(GameState):
                 (0, 0, 0)
              )
         )
+    def newGameState(self):
+        self.current_player = random.randint(0,1)
+        self.board = np.array(
+            (
+                (0, 0, 0),
+                (0, 0, 0),
+                (0, 0, 0)
+             )
+        )
+
 
     def step(self, player_id: int, action_id: int) -> \
             ('GameState', float, bool):
@@ -145,6 +156,10 @@ class TicTacToeGameState(GameState):
         gs.board = self.board.copy()
         gs.current_player = self.current_player
         return gs
+
+    def get_current_scores(self):
+        winner, terminal = self.compute_current_score_and_end_game_more_efficient()
+        return np.array([winner, -winner]), terminal
 
 
 if __name__ == "__main__":

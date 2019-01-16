@@ -12,3 +12,6 @@ class RandomAgent(Agent):
         action_count = len(available_actions)
         return available_actions[random.randint(0, action_count - 1)]
 
+    def toString(self) -> str:
+        return "RandomAgent"
+
