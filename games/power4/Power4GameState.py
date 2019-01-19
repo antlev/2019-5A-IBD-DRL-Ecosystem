@@ -1,3 +1,4 @@
+import random
 from copy import deepcopy
 import numpy as np
 
@@ -9,7 +10,7 @@ from games.power4.Power4InformationState import Power4InformationState
 class Power4GameState(GameState):
 
     def __init__(self):
-        self.current_player = 0
+        self.current_player = random.randint(0,1)
         self.nb_lines = 7
         self.nb_cols = 7
         self.board = np.array(
@@ -24,6 +25,23 @@ class Power4GameState(GameState):
              )
         )
 
+    def newGameState(self):
+        self.current_player = random.randint(0,1)
+        self.nb_lines = 7
+        self.nb_cols = 7
+        self.board = np.array(
+            (
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0
+             )
+        )
+
+
     def help(self):
         print("---------- REMINDER ----------")
         gb = ""
@@ -35,6 +53,8 @@ class Power4GameState(GameState):
                     gb += " " + str(j + 7 * (7-(i+1))) + " "
             gb += "\n"
         print(gb)
+
+
 
 
     def step(self, player_id: int, action_id: int) -> \
@@ -60,10 +80,10 @@ class Power4GameState(GameState):
                     successive_position[0] += 1
                     if successive_position[0] == 4:
                         return 1.0, True
-                elif self.board[j * self.nb_cols + i] == 1:
+                elif self.board[j * self.nb_cols + i] == -1:
                     successive_position[0] = 0
                     successive_position[1] += 1
-                    if successive_position[0] == 4:
+                    if successive_position[1] == 4:
                         return -1.0, True
                 else:
                     successive_position[0] = 0
@@ -76,10 +96,10 @@ class Power4GameState(GameState):
                     successive_position[0] += 1
                     if successive_position[0] == 4:
                         return 1.0, True
-                elif self.board[j * self.nb_cols + i] == 1:
+                elif self.board[j * self.nb_cols + i] == -1:
                     successive_position[0] = 0
                     successive_position[1] += 1
-                    if successive_position[0] == 4:
+                    if successive_position[1] == 4:
                         return -1.0, True
                 else:
                     successive_position[0] = 0
