@@ -1,4 +1,5 @@
 import os
+import random
 
 from agents.CommandLineAgent import CommandLineAgent
 from agents.DeepQLearningAgent import DeepQLearningAgent
@@ -14,7 +15,7 @@ from agents.RandomRolloutAgent import RandomRolloutAgent
 from agents.ReinforceClassicAgent import ReinforceClassicAgent
 from agents.ReinforceClassicWithMultipleTrajectoriesAgent import ReinforceClassicWithMultipleTrajectoriesAgent
 from agents.TabularQLearningAgent import TabularQLearningAgent
-from games.tictactoe.runners.SafeTicTacToeRunner import SafeTicTacToeRunner
+from games.power4.runners.SafePower4Runner import SafePower4Runner
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # see issue #152
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
@@ -62,7 +63,7 @@ class TensorboardPower4Runner(GameRunner):
                 # print(gs)
                 # sleep(0.1)
                 current_player = gs.get_current_player_id()
-                action_ids = gs.get_available_actions_id_for_player(current_player)
+                action_ids = gs.get_available_actions_id_for_player()
                 info_state = gs.get_information_state_for_player(current_player)
                 action_time = time()
                 action = self.agents[current_player].act(current_player,
@@ -133,9 +134,23 @@ class TensorboardPower4Runner(GameRunner):
 if __name__ == "__main__":
 
 
-    log_dir = "./logs/Random_VS_TabularQLearning_" + str(time())
+    # log_dir = "./logs/Random_VS_TabularQLearning_" + str(time())
+    # print(log_dir)
+    # print(TensorboardPower4Runner(RandomAgent(),
+    #                                  TabularQLearningAgent(),
+    #                                  log_and_reset_score_history_threshold=1000,
+    #                                  log_dir=log_dir).run(1000000000))
+
+    # log_dir = "./logs/TabularQLearning_VS_TabularQLearning_" + str(time())
+    # print(log_dir)
+    # print(TensorboardPower4Runner(TabularQLearningAgent(),
+    #                                  TabularQLearningAgent(),
+    #                                  log_and_reset_score_history_threshold=1000,
+    #                                  log_dir=log_dir).run(1000000000))
+
+    log_dir = "./logs/RandomRollout_VS_TabularQLearning_" + str(time())
     print(log_dir)
-    print(TensorboardPower4Runner(RandomAgent(),
+    print(TensorboardPower4Runner(RandomRolloutAgent(3, SafePower4Runner(RandomAgent(), RandomAgent())),
                                      TabularQLearningAgent(),
                                      log_and_reset_score_history_threshold=1000,
                                      log_dir=log_dir).run(1000000000))

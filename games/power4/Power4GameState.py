@@ -309,6 +309,9 @@ class Power4GameState(GameState):
         if self.board[case1] == self.board[case2] and self.board[case1] == self.board[case3]  and self.board[case1] == self.board[case4] and self.board[case1] != 0:
             return self.board[case1], True
 
+        if not self.get_available_actions_id_for_player:
+            return 0.0, True
+
         return 0.0, False
 
     def get_player_count(self) -> int:
@@ -321,7 +324,7 @@ class Power4GameState(GameState):
         return Power4InformationState(self.current_player,
                                          self.board.copy())
 
-    def get_available_actions_id_for_player(self, player_id: int) -> 'Iterable(int)':
+    def get_available_actions_id_for_player(self) -> 'Iterable(int)':
         available_positions = []
         for i in range(self.nb_cols):
             for j in range(self.nb_lines):
@@ -332,8 +335,8 @@ class Power4GameState(GameState):
 
     def __str__(self):
         gb = ""
-        for i in range(7):
-            for j in range(7):
+        for i in range(self.nb_lines):
+            for j in range(self.nb_cols):
                 if self.board[j + 7 * (7-(i+1))] == 0:
                     gb += "_"
                 elif self.board[j + 7 * (7-(i+1))] == 1:
@@ -355,13 +358,13 @@ class Power4GameState(GameState):
 if __name__ == "__main__":
     gs = Power4GameState()
     gs.help()
-    print(gs.get_available_actions_id_for_player(gs.get_current_player_id()))
+    print(gs.get_available_actions_id_for_player())
     print(gs)
     print(gs.step(0,6))
-    print(gs.get_available_actions_id_for_player(gs.get_current_player_id()))
+    print(gs.get_available_actions_id_for_player())
     print(gs)
     print(gs.step(1,5))
-    print(gs.get_available_actions_id_for_player(gs.get_current_player_id()))
+    print(gs.get_available_actions_id_for_player())
     print(gs)
     print(gs.step(0,12))
     print(gs)
@@ -381,5 +384,5 @@ if __name__ == "__main__":
     print(gs)
     print(gs.step(0,24))
     print(gs)
-    print(gs.get_available_actions_id_for_player(gs.get_current_player_id()))
+    print(gs.get_available_actions_id_for_player())
     print(gs)
