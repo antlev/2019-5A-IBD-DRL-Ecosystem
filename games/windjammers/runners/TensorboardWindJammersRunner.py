@@ -46,7 +46,6 @@ class TensorboardWindJammersRunner(GameRunner):
         agent_1_win = 0
         agent_2_win = 0
         draw = 0
-        raw_logs = open("raw_logs" + str(time()), "w+")
 
         while episode_id < max_rounds or max_rounds == -1:
             gs = initial_game_state.copy_game_state()
@@ -120,7 +119,6 @@ class TensorboardWindJammersRunner(GameRunner):
                 self.mean_accumulated_reward_sum = {0: 0.0, 1: 0.0}
 
             episode_id += 1
-        raw_logs.close()
 
 
 if __name__ == "__main__":
